@@ -68,8 +68,10 @@ def has_jpeg_image(d):
   return False
  
 def clear_media(ios_sdk_version):
-  shutil.rmtree(os.path.join(_simulator_media_base(ios_sdk_version), 'PhotoData'), True)
   shutil.rmtree(os.path.join(_simulator_media_base(ios_sdk_version), 'DCIM'), True)
+
+def clear_photodata(ios_sdk_version):
+  shutil.rmtree(os.path.join(_simulator_media_base(ios_sdk_version), 'PhotoData'), True)
  
 def copy_to_simulator(d, ios_sdk_version):
   dest_dir = os.path.join(_simulator_media_base(ios_sdk_version), 'DCIM', '100APPLE')
@@ -102,5 +104,6 @@ if __name__ == '__main__':
   photo_srcdir = sys.argv[1]
   print 'srcdir = %s' % photo_srcdir
   for ios_sdk_version in sdk_versions:
+    clear_photodata(ios_sdk_version)
     print "copy to simulator ver.%s ..." % ios_sdk_version
     copy_to_simulator(photo_srcdir, ios_sdk_version)
